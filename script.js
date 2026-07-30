@@ -139,6 +139,11 @@ function updateHero() {
 const stationsEl = document.getElementById('stations');
 const cardState = new Map(); // id -> { revealed, clickCount }
 
+// touch devices have no cursor to flee from, so there's no "hover tease" —
+// make the button start dodging right away instead of after 3 clicks
+const SUPPORTS_HOVER = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const DODGE_THRESHOLD = SUPPORTS_HOVER ? 3 : 1;
+
 function buildLockedCard(station) {
   const card = document.createElement('div');
   card.className = 'station-card';
@@ -197,12 +202,14 @@ function buildLockedCard(station) {
     msgEl.textContent = randomMessage();
     playMessageAnimation();
     playButtonAnimation();
-    if (state.clicks >= 3) dodge();
+    if (state.clicks >= DODGE_THRESHOLD) dodge();
   });
 
-  btn.addEventListener('mouseenter', () => {
-    if (state.clicks >= 3) dodge();
-  });
+  if (SUPPORTS_HOVER) {
+    btn.addEventListener('mouseenter', () => {
+      if (state.clicks >= DODGE_THRESHOLD) dodge();
+    });
+  }
 
   return card;
 }
