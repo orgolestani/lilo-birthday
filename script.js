@@ -260,6 +260,45 @@ function renderStations(firstRun = false) {
   });
 }
 
+// ---------- gallery lightbox ----------
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCaption = document.getElementById('lightbox-caption');
+const lightboxClose = document.getElementById('lightbox-close');
+
+function openLightbox(polaroid) {
+  const img = polaroid.querySelector('img');
+  lightboxImg.src = img.src;
+  lightboxImg.alt = img.alt;
+  lightboxCaption.textContent = polaroid.dataset.caption || '';
+  lightbox.hidden = false;
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  lightboxImg.src = '';
+}
+
+document.querySelectorAll('.polaroid').forEach(polaroid => {
+  polaroid.setAttribute('tabindex', '0');
+  polaroid.setAttribute('role', 'button');
+  polaroid.addEventListener('click', () => openLightbox(polaroid));
+  polaroid.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openLightbox(polaroid);
+    }
+  });
+});
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) closeLightbox();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+});
+
 // ---------- init ----------
 updateHero();
 renderStations(true);

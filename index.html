@@ -31,6 +31,23 @@
   <p id="hero-message" class="hero-message"></p>
 </header>
 
+<section class="gallery" aria-label="Us">
+  <h2 class="gallery-title">us, lately <span class="wiggle">💛</span></h2>
+  <p class="gallery-sub">tap a photo</p>
+  <div class="polaroid-grid" id="polaroid-grid">
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-01.jpg" alt="A photo of us" loading="lazy"></figure>
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-02.jpg" alt="A photo of us" loading="lazy"></figure>
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-03.jpg" alt="A photo of us" loading="lazy"></figure>
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-04.jpg" alt="A photo of us" loading="lazy"></figure>
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-05.jpg" alt="A photo of us" loading="lazy"></figure>
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-06.jpg" alt="A photo of us" loading="lazy"></figure>
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-07.jpg" alt="A photo of us" loading="lazy"></figure>
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-08.jpg" alt="A photo of us" loading="lazy"></figure>
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-09.jpg" alt="A photo of us" loading="lazy"></figure>
+    <figure class="polaroid" data-caption="[add a memory about this one]"><img src="images/photo-10.jpg" alt="A photo of us" loading="lazy"></figure>
+  </div>
+</section>
+
 <main class="timeline">
   <h2 class="timeline-title">Today's Plan <span class="wiggle">✨</span></h2>
   <p class="timeline-sub">three stations. all secret. all yours, one at a time.</p>
@@ -40,6 +57,14 @@
 <footer>
   <p>made with love (and way too much css), just for you 💛</p>
 </footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close">✕</button>
+  <figure class="lightbox-figure">
+    <img id="lightbox-img" src="" alt="">
+    <figcaption id="lightbox-caption"></figcaption>
+  </figure>
+</div>
 
 <script src="script.js"></script>
 </body>
