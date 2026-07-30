@@ -279,7 +279,7 @@ function closeLightbox() {
   lightboxImg.src = '';
 }
 
-document.querySelectorAll('.polaroid').forEach(polaroid => {
+function enablePolaroid(polaroid) {
   polaroid.setAttribute('tabindex', '0');
   polaroid.setAttribute('role', 'button');
   polaroid.addEventListener('click', () => openLightbox(polaroid));
@@ -289,7 +289,9 @@ document.querySelectorAll('.polaroid').forEach(polaroid => {
       openLightbox(polaroid);
     }
   });
-});
+}
+
+document.querySelectorAll('.polaroid').forEach(enablePolaroid);
 
 lightboxClose.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', e => {
@@ -299,8 +301,30 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
 });
 
+// ---------- station interludes ----------
+// small scattered photos dropped between station cards, in normal document flow
+const STATION_INTERLUDES = [
+  { afterStationId: 1, src: 'images/photo-03.jpg', rotate: '-3deg' },
+  { afterStationId: 2, src: 'images/photo-05.jpg', rotate: '4deg' },
+];
+
+function insertStationInterludes() {
+  STATION_INTERLUDES.forEach(({ afterStationId, src, rotate }) => {
+    const anchor = document.getElementById(`station-${afterStationId}`);
+    if (!anchor) return;
+    const figure = document.createElement('figure');
+    figure.className = 'polaroid interlude station-interlude';
+    figure.dataset.caption = '[add a memory about this one]';
+    figure.style.setProperty('--rotate', rotate);
+    figure.innerHTML = `<img src="${src}" alt="A photo of us" loading="lazy">`;
+    anchor.insertAdjacentElement('afterend', figure);
+    enablePolaroid(figure);
+  });
+}
+
 // ---------- init ----------
 updateHero();
 renderStations(true);
+insertStationInterludes();
 setInterval(updateHero, 1000);
 setInterval(() => renderStations(false), 1000);
