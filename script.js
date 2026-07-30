@@ -43,14 +43,14 @@ const SASSY_MESSAGES = [
   "Nope. Still no.",
   "Maybe if you try clicking 20 more times I'll tell you.",
   "404: patience not found.",
-  "I built this whole website and you think THIS button beats me?",
+  "Persistent. I respect it. Still no.",
   "Access denied. Try being cute instead. Oh wait, you already are. Still no.",
   "That's cute. Anyway, no.",
   "Bold of you to assume I'd fold that easily.",
   "Click #{n} and I'm still not telling you.",
   "This button has one job and it's not that.",
   "Wow, still here? Respect. Still not happening though.",
-  "Somewhere, a developer is laughing at you right now. It's me. I'm the developer.",
+  "Try charm next time. Oh wait, you're already charming. Still no.",
   "You could be using this energy to guess. You won't get it. But you could.",
   "Warm... warmer... nope, ice cold actually.",
   "I have been personally instructed to never fold. Sorry not sorry.",
@@ -180,9 +180,23 @@ function buildLockedCard(station) {
     btn.style.transform = 'none';
   }
 
+  function playMessageAnimation() {
+    msgEl.classList.remove('pop');
+    void msgEl.offsetWidth; // force reflow so the animation restarts every click
+    msgEl.classList.add('pop');
+  }
+
+  function playButtonAnimation() {
+    btn.classList.remove('squish');
+    void btn.offsetWidth;
+    btn.classList.add('squish');
+  }
+
   btn.addEventListener('click', () => {
     state.clicks += 1;
     msgEl.textContent = randomMessage();
+    playMessageAnimation();
+    playButtonAnimation();
     if (state.clicks >= 3) dodge();
   });
 
